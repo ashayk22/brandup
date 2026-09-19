@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "@fontsource/schibsted-grotesk/400.css";
+@import "@fontsource/schibsted-grotesk/500.css";
+@import "@fontsource/schibsted-grotesk/600.css";
+@import "@fontsource/newsreader/400.css";
+@import "@fontsource/newsreader/500.css";
+@import "@fontsource/newsreader/600.css";
+
+/* `dark:` styles apply inside any element carrying the `dark` class (used by
+   the signature dialog) instead of following the visitor's OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Mercury design tokens */
+  --onyx-canvas: #171721;
+  --graphite-card: #1e1e2a;
+  --obsidian-button: #272735;
+  --slate-border: #70707d;
+  --mist-border: #e2e3ed;
+  --ash-text: #c3c3cc;
+  --ivory-text: #ededf3;
+  --cobalt: #5266eb;
+  --cobalt-hover: #4356d6;
+  --pure-white: #ffffff;
+
+  --font-arcadia: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-arcadia-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+}
+
+@theme inline {
+  --color-canvas: var(--onyx-canvas);
+  --color-card: var(--graphite-card);
+  --color-obsidian: var(--obsidian-button);
+  --color-slateline: var(--slate-border);
+  --color-mistline: var(--mist-border);
+  --color-ash: var(--ash-text);
+  --color-ivory: var(--ivory-text);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-hover: var(--cobalt-hover);
+  --color-purewhite: var(--pure-white);
+
+  --font-arcadia: var(--font-arcadia);
+  --font-arcadia-display: var(--font-arcadia-display);
+
+  --radius-nav: 4px;
+  --radius-tag: 2px;
+  --radius-card: 4px;
+  --radius-input: 4px;
+  --radius-button: 4px;
+
+  --spacing-section: 72px;
+  --spacing-card: 32px;
+  --spacing-element: 12px;
+
+  --breakpoint-3xl: 1440px;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+body {
+  background: var(--onyx-canvas);
+  color: var(--ivory-text);
+  font-family: var(--font-arcadia);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* Guard against sideways scroll on all mobile and desktop browsers */
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+/* Hide Next.js dev tools overlay and issue indicator button in bottom-left */
+nextjs-portal,
+div[data-nextjs-toast],
+div[data-nextjs-dialog-overlay] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: var(--pure-white);
+}
+
+/* visible keyboard focus, per accessibility floor */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Stop the page scrolling behind the "Start a project" dialog. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* The dialog eases in when it opens: a response to the click, not decoration. */
+.project-dialog[open] {
+  animation: project-dialog-in 180ms ease-out;
+}
+.project-dialog[open]::backdrop {
+  animation: project-dialog-fade 180ms ease-out;
+}
+@keyframes project-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes project-dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes aurora-pulse {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(-48%, 6%) scale(1.15);
+    opacity: 0.55;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.aurora-glow {
+  animation: aurora-pulse 7s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #ededf3 0%, #818cf8 35%, #ffffff 65%, #ededf3 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-sweep 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  *::backdrop {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
