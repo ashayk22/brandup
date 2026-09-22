@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   // Pages set their own `title`; the template appends the brand name.
   title: { default: title, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
+
+  verification: {
+    google: "bhqUA3ZAcaJ47c67XrCspFuGtrvPiPUgicnRy1l_dic",
+  },
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
